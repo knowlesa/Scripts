@@ -8,22 +8,26 @@ declare -a mtnlion=("iMac7,1" "iMac8,1" "iMac9,1" "iMac10,1" "iMac11,1" "iMac11,
 # get machine model
 MACHINE_MODEL=`/usr/sbin/ioreg -c IOPlatformExpertDevice | grep "model" | awk -F\" '{ print $4 }'`
 
+# See if .applesetupdone file exists and if it does (new machine) run the correct workflow.
 if [ find /Volumes/Macintosh\ HD/var/db/.AppleSetupDone ]; then
     echo "RuntimeSelectWorkflow: E149FC2E-187E-4E6F-89F2-44D997F478C9 "
 fi
 
+# If maximum OS that can be ran is Snow Leopard then image with the correct workflow.
 for i in ${snowleopard[@]}; do
 if [ "${MACHINE_MODEL}" == "$i" ]; then
            echo "RuntimeSelectWorkflow: D81C90EB-3769-46AB-8B50-35A7E48D1D1F "
 fi
 done
 
+# If maximum OS that can be ran is Lion then image with the correct workflow.
 for i in ${lion[@]}; do
 if [ "${MACHINE_MODEL}" == "$i" ]; then
         echo "RuntimeSelectWorkflow: D761456C-283D-4EA7-97A0-8634346F3012 "
 fi
 done
 
+# If maximum OS that can be ran is Mountain Lion then image with the correct workflow.
 for i in ${mtnlion[@]}; do
 if [ "${MACHINE_MODEL}" == "$i" ]; then
         echo "RuntimeSelectWorkflow: 08D111B2-E892-493B-881A-9D84BBFA40A2 "
