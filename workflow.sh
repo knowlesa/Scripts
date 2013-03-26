@@ -8,7 +8,8 @@ declare -a mtnlion=("iMac7,1" "iMac8,1" "iMac9,1" "iMac10,1" "iMac11,1" "iMac11,
 # get machine model
 MACHINE_MODEL=`/usr/sbin/ioreg -c IOPlatformExpertDevice | grep "model" | awk -F\" '{ print $4 }'`
 
-# See if .applesetupdone file exists and if it does (new machine) run the correct workflow.
+# See if .applesetupdone file exists and if it doesn't (new machine) run the correct workflow. The idea of this is
+# we want to use the fresh OS that comes with a new computer and will just push packages rather than a brand new OS.
 if [ find /Volumes/Macintosh\ HD/var/db/.AppleSetupDone ]; then
     echo "RuntimeSelectWorkflow: E149FC2E-187E-4E6F-89F2-44D997F478C9 "
 fi
